@@ -21,6 +21,22 @@ export const login = createAsyncThunk(
   }
 );
 
+export const register = createAsyncThunk(
+  "register",
+  async ({ values, navigate }) => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BASE_URL}/users/`,
+        values
+      );
+      toastSuccessNotify("Register is successful");
+      navigate("/stock");
+    } catch (error) {
+      toastErrorNotify("Register is failed");
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -42,6 +58,20 @@ const authSlice = createSlice({
         state.token = payload?.token;
       })
       .addCase(login.rejected, (state) => {
+        state.loading = false;
+        state.error = true;
+      })
+      .addCase(register.pending, (state) => {
+        state.loading = true;
+        state.error = false;
+      })
+      .addCase(register.fulfilled, (state, { payload }) => {
+        state.loading = false;
+        state.error = false;
+        state.user = payload?.data.username;
+        state.token = payload?.token;
+      })
+      .addCase(register.rejected, (state) => {
         state.loading = false;
         state.error = true;
       });

@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { object, string, number, date, InferType } from "yup";
 import { useDispatch } from "react-redux";
-import authSlice from "../features/authSlice";
 import { login } from "../features/authSlice";
 // - Slicemızı loginde çağırıyoruz.
 
