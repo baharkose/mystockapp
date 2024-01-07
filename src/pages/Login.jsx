@@ -1,9 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { object, string, number, date, InferType } from "yup";
+import { useDispatch } from "react-redux";
+import authSlice from "../features/authSlice";
+import { login } from "../features/authSlice";
+// - Slicemızı loginde çağırıyoruz.
 
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // - yup form işlemleri
   let loginSchema = () =>
     object({
@@ -65,9 +72,11 @@ const Login = () => {
                 // - TODO
                 //? reset, toast, login, global alana veri kaydı - reset ve submit işlemleri hariç kalını kendi yazdığımız hook ile gerçekleştireceğiz.
 
+                dispatch(login({ values, navigate }));
                 resetForm();
                 setSubmitting(false);
-                // - buraya hookun login fonksiyonu gelecek.
+                //- eğer işlemleri thunk ile yapıcaksak o zaman ekstra hooka bir gerek yok zaten thunk bütün işlemleri tek bir yerden yönetebiliyor.
+                //!  form işlemlerimizi tamamladıktan sonra sliceımız tanımlayalım
               }}
             >
               {/* //- formiğin içerisine kendi kütüphanesinde yer alan 1 form ekliyoruz. {()=>{}} içerisine form yazıyoruz. ve form elemenlerimizi içeriisne aktarıyoruz. hangi fonksiyonlara ihityacımız varsa onları parametre olarak alıyoruz. */}
