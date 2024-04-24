@@ -10,13 +10,15 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // - yup form işlemleri
+  // - yup form işlemleri -> yup bizim validasyon işlemleri yaptığımız paket.
   let loginSchema = () =>
     object({
-      email: string().required("please enter an email"),
+      email: string()
+        .email("Please, enter a valid email")
+        .required("Please enter an email"),
       password: string()
         .required("please enter a password")
-        .min(8, "the password should not be at least 8 characters long")
+        .min(8, "The password should not be at least 8 characters long")
 
         .max(16, "the password should not be more than 16 characters long")
         .matches(/\d+/, "password must contain at least 1 number")
@@ -27,20 +29,6 @@ const Login = () => {
           "the password must include at least one special character from @$!%?&"
         ),
     });
-
-  // const [info, setInfo] = useState({
-  //   email: "",
-  //   password: "",
-  // });
-
-  // const handleChange = (e) => {
-  //   setInfo({ ...info, [e.target.name]: e.target.value });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const { email, password } = info;
-  // };
 
   return (
     <>
@@ -72,6 +60,7 @@ const Login = () => {
                 //? reset, toast, login, global alana veri kaydı - reset ve submit işlemleri hariç kalını kendi yazdığımız hook ile gerçekleştireceğiz.
 
                 dispatch(login({ values, navigate }));
+                // burada apiye post isteği yapmamız lazım.
                 resetForm();
                 setSubmitting(false);
                 //- eğer işlemleri thunk ile yapıcaksak o zaman ekstra hooka bir gerek yok zaten thunk bütün işlemleri tek bir yerden yönetebiliyor.
@@ -85,8 +74,10 @@ const Login = () => {
                 values,
                 touched,
                 errors,
+                // inputtan ayrıldığımızda hata verebilmesi için handleBlur dedik.
                 handleBlur,
                 handleSubmit,
+                // formiğin içerisindeki özellikleri kullanmak için destr ediyoruz sonrasında kullanabiliyoruz.
               }) => (
                 <Form>
                   {/* <form action="#" onSubmit={handleSubmit}> */}
@@ -135,8 +126,9 @@ const Login = () => {
                           value={values.email}
                           onChange={handleChange}
                           // MUI ye ait alt taraf
-                          // error={touched.email && Boolean(errors.email)}
-                          // helperText={errors.email}
+                          // eğerm inputa dokunuldu ise, ve errors.mail true ise. bunların hepsi formiğe ait fonksiyonlar.
+                          error={touched.email && Boolean(errors.email)}
+                          helperText={errors.email}
                           onBlur={handleBlur}
                         />
                       </div>
@@ -190,6 +182,7 @@ const Login = () => {
                           placeholder="Enter your password"
                           //- formik
                           value={values.password}
+                          error={touched.password && Boolean(errors.password)}
                           onChange={handleChange}
                           onBlur={handleBlur}
                         />
