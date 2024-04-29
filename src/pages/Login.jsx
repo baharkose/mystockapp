@@ -3,10 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { object, string, number, date, InferType } from "yup";
 import { useDispatch } from "react-redux";
-import { login } from "../features/authSlice";
+
+import useAuthCalls from "../services/useAuthCalls";
+
+// ! 1- api işlemleri için genellikle service adında bir klasör oluşturmamız gerekir. burada login, register vs gibi apiye yapacağımız istekleri belirleriz. -> services useAuthCalls
+
 // - Slicemızı loginde çağırıyoruz.
 
 const Login = () => {
+  const { login } = useAuthCalls();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -59,7 +64,9 @@ const Login = () => {
                 // - TODO
                 //? reset, toast, login, global alana veri kaydı - reset ve submit işlemleri hariç kalını kendi yazdığımız hook ile gerçekleştireceğiz.
 
-                dispatch(login({ values, navigate }));
+                // dispatch(login({ values, navigate }));
+                // valuesun içerisinde sadece email ve password olduğu için doğrudan pass geçtik.
+                login(values);
                 // burada apiye post isteği yapmamız lazım.
                 resetForm();
                 setSubmitting(false);
