@@ -47,8 +47,19 @@ const useAuthCalls = () => {
     }
   };
 
-  const logout = async () => {};
-  const register = async () => {};
+  const logout = async () => {
+    dispacth(fetchStart());
+    try {
+    } catch (error) {}
+  };
+  const register = async () => {
+    dispacth(fetchStart());
+    try {
+      const {data} = await 
+    } catch (error) {
+      
+    }
+  };
 
   return { login, logout, register };
 };
