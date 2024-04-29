@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { register } from "../features/authSlice";
+
 import { Dispatch } from "@reduxjs/toolkit";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -82,7 +82,7 @@ const Register = () => {
                 resetForm();
                 setSubmitting();
                 // - buraya register gelicek slicedan
-                dispatch(register({ values, navigate }));
+                // dispatch(register({ values, navigate }));
               }}
             >
               {({
