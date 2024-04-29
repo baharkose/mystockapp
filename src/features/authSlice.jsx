@@ -1,3 +1,5 @@
+// ! redux toolkit için öncelikle store'unu olutşur. Provider ile sarmala, ardından slice ile ne kadar işlem varsa state değişimi için bunlar için reducerlarını tamamla. en son ise useSelector ile ui tarafında dispatch ile reducerları çağırarak state güncellememelerini tamamla.
+
 // import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 // import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 // import axios from "axios";
@@ -112,9 +114,20 @@ const authSlice = createSlice({
       state.user = payload.user.username;
       state.token = payload.token;
     },
-    registerSuccess: (state, { payload }) => {},
-    logoutSuccess: (state) => {},
-    fetchFail: (state) => {},
+    registerSuccess: (state, { payload }) => {
+      state.loading = false;
+      state.user = payload.data.username;
+      state.token = payload.token;
+    },
+    logoutSuccess: (state) => {
+      state.user = "";
+      state.loading = false;
+      state.token = "";
+    },
+    fetchFail: (state) => {
+      state.loading = false;
+      state.error = true;
+    },
   },
 });
 
