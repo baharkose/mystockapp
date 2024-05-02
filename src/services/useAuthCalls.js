@@ -25,10 +25,12 @@ const useAuthCalls = () => {
     // login işlemi başladı, fetchStart için bir dispatch yayınlıyoruz. Statein değişebilmesi için UI tarafında tetikleyici çalıştırdık.
     dispacth(fetchStart());
     try {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_BASE_URL}/auth/login`,
-        userInfo
-      );
+      // const { data } = await axios.post(
+      //   `${process.env.REACT_APP_BASE_URL}/auth/login`,
+      //   userInfo
+      // );
+
+      const { data } = await axiosPublic.post("auth/login", userInfo);
 
       // login işlemi başarılı ise bir dispatch yayınla, loginSuccess reducerı çalışıısn ve stateler buradaki logic yapısına göre güncellensin. Burada bir payload gönderilmesi gerekli, oda bize apiden  gelen veriler ki global olarak gelen user bilgileri kullanılabilsin
       dispacth(loginSuccess(data));
