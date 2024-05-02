@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { Formik, Form } from "formik";
 import { object, string, number, date, InferType } from "yup";
 import useAuthCalls from "../services/useAuthCalls";
-import RegisterForm from "../components/RegisterForm";
+import RegisterForm, { registerSchema } from "../components/RegisterForm";
 
 const Register = () => {
   const { register } = useAuthCalls();
