@@ -2,7 +2,7 @@ import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
+import axiosPublic from "./useAxios";
 // tüm reducerlarımız içindeki statelerimizi tetiklemek için öncelikle çağırdık.
 
 import {
@@ -52,12 +52,15 @@ const useAuthCalls = () => {
     try {
     } catch (error) {}
   };
-  const register = async () => {
+  const register = async (userInfo) => {
     dispacth(fetchStart());
     try {
-      const {data} = await 
+      // const { data } = await axiosPublic.post("/users/", userInfo);
+      const { data } = await axiosPublic.post("/users", userInfo);
+      dispacth(registerSuccess(data));
+      navigate("/stock");
     } catch (error) {
-      
+      dispacth(fetchFail());
     }
   };
 
