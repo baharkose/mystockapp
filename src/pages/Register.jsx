@@ -1,18 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-
-import { Dispatch } from "@reduxjs/toolkit";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { Formik, Form } from "formik";
-import { object, string, number, date, InferType } from "yup";
+import { Formik } from "formik";
 import useAuthCalls from "../services/useAuthCalls";
 import RegisterForm, { registerSchema } from "../components/RegisterForm";
 
 const Register = () => {
   const { register } = useAuthCalls();
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   return (
     <>
@@ -45,10 +38,10 @@ const Register = () => {
                 password: "",
               }}
               validationSchema={registerSchema}
-              onSubmit={(values, acitons) => {
+              onSubmit={(values, actions) => {
                 register(values);
-                acitons.resetForm();
-                acitons.setSubmitting(false);
+                actions.resetForm();
+                actions.setSubmitting(false);
               }}
               // formik ve yup işlemlerini daha modüler hale getirebilmek için form elementlerini ayrı bir component içerisinde tanımlayabiliriz. Bunun için formikin component bileşeni vardır. Bizim belirlediğimiz initial value ve diğer elemanları destruct edip props geçip kullanabiliriz. -> registerForm
               component={(props) => <RegisterForm {...props} />}
