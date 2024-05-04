@@ -38,10 +38,16 @@ const Register = () => {
                 password: "",
               }}
               validationSchema={registerSchema}
-              onSubmit={(values, actions) => {
-                register(values);
-                actions.resetForm();
-                actions.setSubmitting(false);
+              onSubmit={async (values, actions) => {
+                console.log("submitting form with values:", values);
+                try {
+                  register(values);
+                  // actions.resetForm();
+                  actions.setSubmitting(false);
+                  console.log("is submitted");
+                } catch (error) {
+                  console.log("Registration error", error);
+                }
               }}
               // formik ve yup işlemlerini daha modüler hale getirebilmek için form elementlerini ayrı bir component içerisinde tanımlayabiliriz. Bunun için formikin component bileşeni vardır. Bizim belirlediğimiz initial value ve diğer elemanları destruct edip props geçip kullanabiliriz. -> registerForm
               component={(props) => <RegisterForm {...props} />}

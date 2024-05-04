@@ -2,7 +2,7 @@ import axios from "axios";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import axiosPublic from "./useAxios";
+import useAxios from "./useAxios";
 // tüm reducerlarımız içindeki statelerimizi tetiklemek için öncelikle çağırdık.
 
 import {
@@ -18,6 +18,7 @@ import {
 // !2 burada axios ile userbilgilerini göndererek login işlemimizi gerçekleştiriyoruz. baseUrl'i biçok yerde kullanacağımız için .env dosyasından çağırdık.
 
 const useAuthCalls = () => {
+  const { axiosPublic } = useAxios();
   const navigate = useNavigate();
   const dispacth = useDispatch();
 
@@ -30,22 +31,22 @@ const useAuthCalls = () => {
       //   userInfo
       // );
 
-      const { data } = await axiosPublic.post("auth/login", userInfo);
+      const { data } = await axiosPublic.post("/auth/login/", userInfo);
 
       // login işlemi başarılı ise bir dispatch yayınla, loginSuccess reducerı çalışıısn ve stateler buradaki logic yapısına göre güncellensin. Burada bir payload gönderilmesi gerekli, oda bize apiden  gelen veriler ki global olarak gelen user bilgileri kullanılabilsin
       dispacth(loginSuccess(data));
       console.log(data);
       // hook kullanabilmek için ya bir custom hook içerisinde ya da bir functional component içerisinde kullanılabilir. react komponenti olması için return jsx döndürmesi lazım aynı zamanda react komponentleri büyük harf ile başlar. jsx e ihtiyaç duymadan hook kullanabilmemizi sağlayan yapı için bizimde bir hook oluşturmamız gerekir. Bunun için adını use ile başlatacağız. nasıl yapılıyor- rafce ile bir component oluştur. sonra içerisine login fonksiyonunu ekle. ancak export custom hookta yapılamaz bunun için return içerisinde export işlemi yapıyoruzç
+      console.log(data);
       navigate("/stock");
 
       // login olduktan sonra verilerimizi kullanabilmek için global statelere aktarmamız gerekiyor bunun için features klasösründe authSlice'ımızı oluşturuyoruz.
 
       toastSuccessNotify("Login is successful");
-      console.log(data);
     } catch (error) {
-      console.log(error);
+      console.log("fsfdsfsdfsdfds", error);
       dispacth(fetchFail());
-      toastErrorNotify("Login is failed");
+      toastErrorNotify("Login is failed ", error);
     }
   };
 
@@ -58,11 +59,13 @@ const useAuthCalls = () => {
     dispacth(fetchStart());
     try {
       // const { data } = await axiosPublic.post("/users/", userInfo);
-      const { data } = await axiosPublic.post("/users", userInfo);
+      const { data } = await axiosPublic.post("/users/", userInfo);
       dispacth(registerSuccess(data));
       navigate("/stock");
+      console.log("registration is successful");
     } catch (error) {
       dispacth(fetchFail());
+      console.log("registration is failed");
     }
   };
 

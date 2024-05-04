@@ -11,6 +11,7 @@ import useAuthCalls from "../services/useAuthCalls";
 // - Slicemızı loginde çağırıyoruz.
 
 const Login = () => {
+  console.log("login");
   const { login } = useAuthCalls();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const Login = () => {
               onSubmit={(values, { resetForm, setSubmitting }) => {
                 // - TODO
                 //? reset, toast, login, global alana veri kaydı - reset ve submit işlemleri hariç kalını kendi yazdığımız hook ile gerçekleştireceğiz.
+                console.log(values);
 
                 // dispatch(login({ values, navigate }));
                 // valuesun içerisinde sadece email ve password olduğu için doğrudan pass geçtik.
