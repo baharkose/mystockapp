@@ -17,24 +17,6 @@ const Navbar = () => {
           <div>
             <Link
               to="/"
-              className="text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Ana Sayfa
-            </Link>
-            <Link
-              to="/about"
-              className="text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Hakkında
-            </Link>
-            <Link
-              to="/contact"
-              className="text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
-              İletişim
-            </Link>
-            <Link
-              to="/"
               // logout olduğunda logout fonksiyonunu çalıştır.
               onClick={() => logout()}
               className="text-white px-3 py-2 rounded-md text-sm font-medium"
