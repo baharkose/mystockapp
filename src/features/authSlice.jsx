@@ -120,6 +120,7 @@ const authSlice = createSlice({
       state.token = payload.token;
     },
     logoutSuccess: (state) => {
+      // logouttan olunca tüm statlerimizi sıfırladık.
       state.user = "";
       state.loading = false;
       state.token = "";
