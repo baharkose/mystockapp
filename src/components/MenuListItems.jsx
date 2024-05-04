@@ -1,6 +1,15 @@
 import React from "react";
 
 const MenuListItems = () => {
+  // ! menüleri otomatik olarak tanımlayabilemek için json formatına çevirdik.
+  const icons = [{
+    "name":"Dashboard",
+    "icon":""
+  }];
+
+
+
+
   return (
     <>
       {/* drawer component */}
@@ -9,7 +18,7 @@ const MenuListItems = () => {
         className="fixed top-15 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform bg-white w-64 dark:bg-gray-800 visible"
         tabIndex={-1}
         //   translate x full görünmezliğe neden oluyor
-    
+
         aria-labelledby="drawer-navigation-label"
       >
         <h5
