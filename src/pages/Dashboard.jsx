@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import MenuListItems from "../components/MenuListItems";
+import MenuListItems from "../components/Menu/MenuListItems";
 import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
